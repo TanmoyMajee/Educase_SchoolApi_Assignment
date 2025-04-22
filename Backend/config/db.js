@@ -29,9 +29,14 @@ export async function initializeDatabase() {
   });
 
   // Test the connection
+  try {
   const connection = await pool.getConnection();
-  connection.release();
+  connection.release(); // Return to pool
   console.log('Database connected successfully');
+} catch (err) {
+  console.error('Database connection failed:', err.message);
+  process.exit(1); // Exit app if DB connection fails
+}
   
   return pool;
 }
