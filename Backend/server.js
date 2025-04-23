@@ -4,6 +4,7 @@ import mysql from 'mysql2';
 import express from 'express';
 import { initializeDatabase, getPool } from './config/db.js';
 import { createSchoolsTable } from './models/school_model.js';
+import router from './routes/schoolRoute.js';
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
@@ -30,8 +31,10 @@ async function init() {
 init();
 
 app.get('/', (req, res) => {
-  res.send('Welcome to the Bank Management System API!');
+  res.send('Welcome to the School Locator  API!');
 });
+
+app.use('/', router); // Use the school routes
 
 // Middleware to handle errors
 app.use((err, req, res, next) => {
@@ -40,12 +43,4 @@ app.use((err, req, res, next) => {
 });
 
 
-
-
-// const pool = mysql.createPool({
-//   host: 'localhost',
-//   user:'root',
-//   password:'t@nmoy01*',
-//   database:'bankmanagement',
-// }).promise();
 
